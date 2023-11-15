@@ -1,28 +1,28 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { useState } from "react";
-import "./App.css";
-import Form from "./Views/Form/Form"
-import landing from "./views/landing/landing";
-import home from "./views/home/home";
-import details from "./Views/Details/Details"
-import NavBar from "./Components/NavBar/NavBar"
+import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import thunk from 'redux-thunk';
+import rootReducer from './Redux/reducers/index';
+import Home from "./Views/Home/Home"
+import Landing from './Views/Landing/Landing';
 
-function App() {
-  const [count, setCount] = useState(0);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
+const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-      <NavBar/>
-        <Routes>
-          <Route path="/" Component={landing}/>
-          <Route path="/home" Component={home}/>
-          <Route path="/details/:id" Component={details}/>
-          <Route path="/form" Component={Form}/>
-        </Routes>
-      </BrowserRouter>
+    <div className='app'>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' Component={Landing}/>
+            <Route path='/home' Component={Home}/>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
-}
+};
 
 export default App;
+

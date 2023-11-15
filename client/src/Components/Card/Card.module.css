@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: #2B2D2F;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 25px;
+    cursor: pointer;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+    text-decoration: none;
+}
+
+
+.container:hover{
+    transform: scale(1.05);
+}
+
+.container img{
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.container h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.container p {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+  
