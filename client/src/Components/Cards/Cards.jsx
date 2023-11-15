@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchCountries } from '../../Redux/actions/actions';
 import Card from "../Card/Card"
 import styles from "../Cards/Cards.module.css"
+import {Link} from "react-router-dom"
 
 const Cards = () => {
   const dispatch = useDispatch();

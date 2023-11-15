@@ -18,6 +18,16 @@ export function searchCountries(){
     }
 }
 
-export function searchCountriesByName(){
-    
-}
+export const searchCountriesByName = (name) => async (dispatch) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/countries/name?name=${name}`);
+    const countries = response.data;
+    dispatch({
+      type: SEARCH_COUNTRIES_BY_NAME,
+      payload: countries,
+    });
+  } catch (error) {
+
+    console.error('Error searching countries by name:', error.message);
+  }
+};

@@ -1,6 +1,5 @@
 const initialState = {
     countries: [], // Inicializa countries como un array vacío
-    // Otros estados si los tienes
   };
   
   const rootReducer = (state = initialState, action) => {
@@ -10,7 +9,11 @@ const initialState = {
           ...state,
           countries: action.payload,
         };
-      // Otros casos
+      case "SEARCH_COUNTRIES_BY_NAME":
+        return{
+          ...state,
+          countries: action.payload,
+        }
       default:
         return state;
     }

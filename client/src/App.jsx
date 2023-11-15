@@ -1,11 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import rootReducer from './Redux/reducers/index';
-import Home from "./Views/Home/Home"
+import Home from './Views/Home/Home';
 import Landing from './Views/Landing/Landing';
+import Details from './Views/Details/Details';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -15,8 +16,9 @@ const App = () => {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route path='/' Component={Landing}/>
-            <Route path='/home' Component={Home}/>
+            <Route path='/' element={<Landing />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/home/:idPais' element={<Details />} />
           </Routes>
         </BrowserRouter>
       </Provider>
@@ -25,4 +27,5 @@ const App = () => {
 };
 
 export default App;
+
 

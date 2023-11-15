@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import SearchBar from '../SearchBar/SearchBar';
 
-const navBar = () => {
+const NavBar = () => {
   return (
-    <div>navBar</div>
-  )
-}
+    <nav>
+      <SearchBar /> {/*este componente se dedica a renderizar la searchbar */}
+    </nav>
+  );
+};
 
-export default navBar
+export default NavBar;
