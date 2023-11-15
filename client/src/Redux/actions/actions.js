@@ -2,8 +2,9 @@ import axios from 'axios';
 
 export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const SEARCH_COUNTRIES_BY_NAME = 'SEARCH_COUNTRIES_BY_NAME';
+export const SEARCH_COUNTRIES_BY_ACTIVITY = 'SEARCH_COUNTRIES_BY_ACTIVITY';
 
-export function searchCountries(continent, activity) {
+export function searchCountries(continent) {
   return async function(dispatch) {
     try {
       let url = 'http://localhost:3001/countries';
@@ -42,7 +43,7 @@ export const searchCountriesByName = (name) => async (dispatch) => {
 
 export const searchCountriesByActivity = (activity) => {
   return {
-    type: 'SEARCH_COUNTRIES_BY_ACTIVITY',
+    type: SEARCH_COUNTRIES_BY_ACTIVITY,
     payload: activity,
   };
 };

@@ -1,5 +1,6 @@
 const initialState = {
     countries: [], // Inicializa countries como un array vacío
+    filteredCountries: [],
   };
   
   const rootReducer = (state = initialState, action) => {

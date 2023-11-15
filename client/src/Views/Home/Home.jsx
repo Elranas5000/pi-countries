@@ -1,43 +1,45 @@
+// src/Views/Home/Home.jsx
+
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../../Components/NavBar/NavBar';
 import Cards from "../../Components/Cards/Cards";
-import { searchCountriesByActivity } from '../../Redux/actions/actions';
-
+import { searchCountries, searchCountriesByActivity } from '../../Redux/actions/actions';
 
 const Home = () => {
   const countries = useSelector((state) => state.countries);
   const dispatch = useDispatch();
 
-  const [sortType, setSortType] = useState('name'); // 'name' o 'population'
-  const [sortDirection, setSortDirection] = useState('asc'); // 'asc' o 'desc'
-
-  const [selectedContinent, setSelectedContinent] = useState(''); // estado para almacenar el continente seleccionado
-  const [selectedActivity, setSelectedActivity] = useState('')
-
+  const [sortType, setSortType] = useState('name');
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [selectedContinent, setSelectedContinent] = useState('');
+  const [selectedActivity, setSelectedActivity] = useState('');
 
   const handleSortTypeChange = (type) => {
     setSortType(type);
-    setSelectedContinent("")
-    setSelectedActivity("")
+    setSelectedContinent("");
+    setSelectedActivity("");
   };
 
   const handleSortDirectionChange = (direction) => {
     setSortDirection(direction);
   };
 
-  const handleContinentChange = (continent) =>{
-    setSelectedContinent(continent)
-  }
+  const handleContinentChange = (continent) => {
+    setSelectedContinent(continent);
+  };
 
   const handleActivityChange = (activity) => {
     setSelectedActivity(activity);
-    console.log(selectedActivity);
     dispatch(searchCountriesByActivity("", activity));
   };
 
+  const handleSearch = (name) => {
+    dispatch(searchCountries(selectedContinent, selectedActivity, name));
+  };
+
   const continents = [...new Set(countries.map((country) => country.continents))];
-  const activities = [...new Set(countries.flatMap((country) => country.activities.map(activity => activity.name)))];
+  const activities = [...new Set(countries.flatMap((country) => country.activities?.map(activity => activity.name) || []))];
 
   const sortedCountries = [...countries].sort((a, b) => {
     if (sortType === 'name') {
@@ -52,7 +54,6 @@ const Home = () => {
 
   return (
     <div>
-
       <h1>Welcome to the Countries SPA</h1>
 
       <NavBar />
@@ -99,7 +100,11 @@ const Home = () => {
         </select>
       </div>
 
-      <Cards countries={sortedCountries} selectedContinent={selectedContinent} selectedActivity={selectedActivity} />
+      <Cards
+        countries={sortedCountries}
+        selectedContinent={selectedContinent}
+        selectedActivity={selectedActivity}
+      />
     </div>
   );
 };
