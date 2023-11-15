@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import rootReducer from './Redux/reducers/index';
-import Home from './Views/Home/Home';
+import Home from "./Views/Home/Home"
 import Landing from './Views/Landing/Landing';
 import Details from './Views/Details/Details';
 

@@ -7,7 +7,7 @@ const Details = () => {
   const countries = useSelector((state) => state.countries);
 
   // Buscar el país por id en la lista de países
-  const country = countries.find((c) => c.id === idPais);
+  const country = countries.find((c) => c.id === idPais); //c siendo country
 
   if (!country) {
     return <div>Country not found</div>;

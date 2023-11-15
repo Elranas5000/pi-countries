@@ -14,6 +14,15 @@ const initialState = {
           ...state,
           countries: action.payload,
         }
+        case 'SEARCH_COUNTRIES_BY_ACTIVITY':
+          const activity = action.payload;
+          const filteredCountries = state.countries.filter(country =>
+            country.activities.some(act => act.name === activity)
+          );
+          return {
+            ...state,
+            filteredCountries: activity ? filteredCountries : state.countries,
+          }
       default:
         return state;
     }
