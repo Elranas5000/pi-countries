@@ -8,8 +8,11 @@ const { getActivities } = require("../controllers/getActivities");
 const router = Router();
 
 router.get("/countries/name", getCountriesByName)
+
 router.get("/countries/:idPais", getCountryById);
+
 router.get("/countries", getAllCountriesDB);
+
 router.get("/activities", getActivities);
 
 router.post('/activities', postActivity);
