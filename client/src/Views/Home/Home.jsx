@@ -74,7 +74,7 @@ const Home = () => {
         <label>Filter by Continent:</label>
         <select onChange={(e) => handleContinentChange(e.target.value)} value={selectedContinent}>
           <option key="" value="">
-            All Continents
+            All continents
           </option>
           {continents.map((continent) => (
             <option key={continent} value={continent}>
@@ -88,7 +88,7 @@ const Home = () => {
         <label>Filter by Activity:</label>
         <select onChange={(e) => handleActivityChange(e.target.value)} value={selectedActivity}>
           <option key="activity" value="">
-            All Activities
+            All countries
           </option>
           {activities.map((activity) => (
             <option key={activity} value={activity}>

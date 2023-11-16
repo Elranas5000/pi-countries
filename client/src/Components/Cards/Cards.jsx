@@ -41,14 +41,14 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          Previous Page
+          Previous
         </button>
         <span>Page {currentPage} of {totalPages}</span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          Next Page
+          Next
         </button>
       </div>
 
@@ -63,14 +63,14 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          Previous Page
+          Previous
         </button>
         <span>Page {currentPage} of {totalPages}</span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          Next Page
+          Next
         </button>
       </div>
     </div>
