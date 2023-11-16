@@ -1,5 +1,3 @@
-// src/Views/Home/Home.jsx
-
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../../Components/NavBar/NavBar';
