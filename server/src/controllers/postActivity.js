@@ -1,4 +1,4 @@
-const { Activity } = require("../db");
+const { Activity, Country } = require("../db");
 
 const postActivity = async (req, res) => {
     try {
@@ -15,23 +15,14 @@ const postActivity = async (req, res) => {
             name,
             difficulty,
             season: [season],
-            // countries: [countries],
         });
 
-        let countriesArray = [];
-
-        if (Array.isArray(countries)) {
-            countriesArray = countries;
-        } else if (typeof countries === 'object') {
-            countriesArray = Object.values(countries);
-        }
-
-        await newActivity.addCountries(countriesArray);
+        await newActivity.addCountries(countries);
 
         return res.status(200).json(newActivity);
     } catch (error) {
         console.error("Error en la solicitud:", error);
-        return res.status(500).send(error.message);
+        return res.status(500).json({ error: "Datos incompletos", details: error.message });
     }
 };
 

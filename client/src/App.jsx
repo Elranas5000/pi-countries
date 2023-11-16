@@ -7,6 +7,7 @@ import rootReducer from './Redux/reducers/index';
 import Home from "./Views/Home/Home"
 import Landing from './Views/Landing/Landing';
 import Details from './Views/Details/Details';
+import Form from './Views/Form/Form';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/' element={<Landing />} />
             <Route path='/home' element={<Home />} />
             <Route path='/home/:idPais' element={<Details />} />
+            <Route path='/form' element={<Form/>} />
           </Routes>
         </BrowserRouter>
       </Provider>

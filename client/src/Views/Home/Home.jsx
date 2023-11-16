@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../../Components/NavBar/NavBar';
 import Cards from "../../Components/Cards/Cards";
 import { searchCountries, searchCountriesByActivity } from '../../Redux/actions/actions';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const countries = useSelector((state) => state.countries);
@@ -96,6 +97,14 @@ const Home = () => {
             </option>
           ))}
         </select>
+      </div>
+
+      <div>
+        <Link to={"/form"}>
+          <button>
+            Make your own activity
+          </button>
+        </Link>
       </div>
 
       <Cards
