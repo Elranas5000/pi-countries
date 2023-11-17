@@ -4,6 +4,7 @@ import NavBar from '../../Components/NavBar/NavBar';
 import Cards from "../../Components/Cards/Cards";
 import { searchCountries, searchCountriesByActivity } from '../../Redux/actions/actions';
 import { Link } from 'react-router-dom';
+import styles from "../Home/Home.module.css"
 
 const Home = () => {
   const countries = useSelector((state) => state.countries);
@@ -52,12 +53,12 @@ const Home = () => {
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Welcome to the Countries SPA</h1>
 
       <NavBar />
 
-      <div>
+      <div className={styles.sortFilterContainer}>
         <label>Sort by:</label>
         <select onChange={(e) => handleSortTypeChange(e.target.value)}>
           <option value="name">Name</option>
@@ -71,7 +72,7 @@ const Home = () => {
         </select>
       </div>
 
-      <div>
+      <div className={styles.sortFilterContainer}>
         <label>Filter by Continent:</label>
         <select onChange={(e) => handleContinentChange(e.target.value)} value={selectedContinent}>
           <option key="" value="">
@@ -85,7 +86,7 @@ const Home = () => {
         </select>
       </div>
 
-      <div>
+      <div className={styles.sortFilterContainer}>
         <label>Filter by Activity:</label>
         <select onChange={(e) => handleActivityChange(e.target.value)} value={selectedActivity}>
           <option key="activity" value="">
@@ -99,7 +100,7 @@ const Home = () => {
         </select>
       </div>
 
-      <div>
+      <div className={styles.cardsContainer}>
         <Link to={"/form"}>
           <button>
             Make your own activity

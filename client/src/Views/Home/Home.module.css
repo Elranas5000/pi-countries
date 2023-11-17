@@ -1,0 +1,49 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+  
+   h1 {
+    text-align: center;
+    color: #333;
+}
+  
+  .sortFilterContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+  
+  .sort-filter-container label {
+    margin-right: 10px;
+}
+  
+  .select-input {
+    padding: 8px;
+    font-size: 14px;
+}
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+  
+  .cards-container a {
+    text-decoration: none;
+    color: inherit;
+}
+  
+  .cards-container button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+  
+  .cards-container button:hover {
+    background-color: #45a049;
+}

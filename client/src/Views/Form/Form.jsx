@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styles from "../Form/Form.module.css"
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -102,7 +103,8 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      
       <div>
         <Link to={'/home'}>
           <button>Home</button>
@@ -110,7 +112,7 @@ const Form = () => {
       </div>
 
       <h2>Tourist activities creation form</h2>
-      <form>
+      <form >
         <div>
           <label>Name:</label>
           <input type="text" value={name} onChange={handleNameChange} />

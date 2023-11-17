@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Details = () => {
@@ -15,6 +15,11 @@ const Details = () => {
 
   return (
     <div>
+      <Link to={"/home"}>
+        <button>
+          Home
+        </button>
+      </Link>
       <h2>{country.name} {`(${country.id})`}</h2>
       <img src={country.flag_image} alt={`Flag of ${country.name}`} />
       <p>Continent: {country.continents}</p>
