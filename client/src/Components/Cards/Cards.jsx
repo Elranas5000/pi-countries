@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchCountries } from '../../Redux/actions/actions'; // Importa la acción
+import { searchCountries } from '../../Redux/actions/actions';
 import Card from "../Card/Card";
 import styles from "../Cards/Cards.module.css";
 
@@ -10,8 +10,10 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(searchCountries(selectedContinent));
-  }, [dispatch, selectedContinent]);
+    if (!selectedContinent && !selectedActivity) {
+      dispatch(searchCountries());
+    }
+  }, [dispatch, selectedContinent, selectedActivity]);
 
   const filteredCountries = countries.filter((country) => {
     const isContinentMatch = !selectedContinent || country.continents === selectedContinent;
@@ -21,7 +23,7 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
     return isContinentMatch && isActivityMatch;
   });
 
-  // Calcular el índice inicial y final de los elementos a mostrar
+  // el principio y el final de los elementos que debe mostrar por pagina
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -31,30 +33,62 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    dispatch(searchCountries(selectedContinent)); // Actualiza la lista de países al cambiar de página
+    if (!selectedContinent && !selectedActivity) {
+      dispatch(searchCountries());
+    }
   };
 
   return (
     <div>
+      {filteredCountries.length === 0 && (
+        <div>
+          <Card country={{ name: "Country not found" }} />
+        </div>
+      )}
+
+        <div className={styles.pagination}>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span> Page {currentPage} of {totalPages} </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+      </div>
+
       <div className={styles.pagination}>
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            disabled={currentPage === index + 1}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
 
       <div className={styles.container}>
         {visibleCountries.map((country) => (
           <Card key={country.id} country={country} />
+        ))}
+      </div>
+
+      <div className={styles.pagination}>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            disabled={currentPage === index + 1}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
 
@@ -73,6 +107,8 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
           Next
         </button>
       </div>
+
+      
     </div>
   );
 };

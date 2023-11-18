@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchCountriesByName } from '../../Redux/actions/actions';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearchResults }) => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
+  const countries = useSelector((state) => state.countries);
 
   const handleSearch = () => {
-    dispatch(searchCountriesByName(searchTerm));
+    const results = countries.filter((country) =>
+      country.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    onSearchResults(results); 
   };
 
+  useEffect(() => {
+    handleSearch(); 
+  }, [searchTerm]); 
+
   const handleKeyPress = (e) => {
-    //verifica si presiono enter
     if (e.key === 'Enter') {
       handleSearch();
     }
@@ -24,9 +31,8 @@ const SearchBar = () => {
         placeholder="Search countries by name"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyPress={handleKeyPress} // si presiono enter, tambien busca
+        onKeyPress={handleKeyPress}
       />
-      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };

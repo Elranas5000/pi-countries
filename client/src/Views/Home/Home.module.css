@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   margin-top: 75px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .NavBar {
@@ -13,7 +15,7 @@
   color: #ddd; 
   padding: 10px;
   box-sizing: border-box;
-  height: 10%;
+  height: 9%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,4 +35,15 @@
 .sortFilterContainer select {
   margin-right: 20px;
   margin-left: 20px; 
+  border-color: #333;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+button{
+  border-color: #333;
+  border-radius: 3px;
+}
+
+input{
+  border-radius: 3px;
 }

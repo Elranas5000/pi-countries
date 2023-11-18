@@ -15,6 +15,7 @@ const Home = () => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [selectedContinent, setSelectedContinent] = useState('');
   const [selectedActivity, setSelectedActivity] = useState('');
+  const [searchResults, setSearchResults] = useState([]); 
 
   const handleSortTypeChange = (type) => {
     setSortType(type);
@@ -35,10 +36,14 @@ const Home = () => {
     dispatch(searchCountriesByActivity("", activity));
   };
 
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
+
   const continents = [...new Set(countries.map((country) => country.continents))];
   const activities = [...new Set(countries.flatMap((country) => country.activities?.map(activity => activity.name) || []))];
 
-  const sortedCountries = [...countries].sort((a, b) => {
+  const sortedCountries = [...(searchResults.length > 0 ? searchResults : countries)].sort((a, b) => {
     if (sortType === 'name') {
       return sortDirection === 'asc'
         ? a.name.localeCompare(b.name)
@@ -49,66 +54,53 @@ const Home = () => {
     return 0;
   });
 
+  // if(searchResults.length === 0){
+  //   return null;
+  // }
+
   return (
     <div className={styles.container}>
-
       <div className={styles.NavBar}>
         <h1>Countries!</h1>
-
         <div className={styles.sortFilterContainer}>
-        {/* <label>Sort by:</label> */}
-        <select  onChange={(e) => handleSortTypeChange(e.target.value)}>
-          <option value="name">Filter by</option>
-          <option value="name">Name</option>
-          <option value="population">Population</option>
-        </select>
-
-        {/* <label>Order:</label> */}
-        <select onChange={(e) => handleSortDirectionChange(e.target.value)}>
-          <option value="asc">Order</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      
-
-      
-        {/* <label>Filter by Continent:</label> */}
-        <select onChange={(e) => handleContinentChange(e.target.value)} value={selectedContinent}>
-          <option key="" value="">
-            All continents
-          </option>
-          {continents.map((continent) => (
-            <option key={continent} value={continent}>
-              {continent}
+          <select onChange={(e) => handleSortTypeChange(e.target.value)}>
+            <option value="name">Filter by</option>
+            <option value="name">Name</option>
+            <option value="population">Population</option>
+          </select>
+          <select onChange={(e) => handleSortDirectionChange(e.target.value)}>
+            <option value="asc">Order</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+          <select onChange={(e) => handleContinentChange(e.target.value)} value={selectedContinent}>
+            <option key="" value="">
+              All continents
             </option>
-          ))}
-        </select>
-      
-
-      
-        {/* <label>Filter by Activity:</label> */}
-        <select onChange={(e) => handleActivityChange(e.target.value)} value={selectedActivity}>
-          <option key="activity" value="">
-            Filter by activities
-          </option>
-          {activities.map((activity) => (
-            <option key={activity} value={activity}>
-              {activity}
+            {continents.map((continent) => (
+              <option key={continent} value={continent}>
+                {continent}
+              </option>
+            ))}
+          </select>
+          <select onChange={(e) => handleActivityChange(e.target.value)} value={selectedActivity}>
+            <option key="activity" value="">
+              Filter by activities
             </option>
-          ))}
-        </select>
-      
+            {activities.map((activity) => (
+              <option key={activity} value={activity}>
+                {activity}
+              </option>
+            ))}
+          </select>
+        </div>
+        <SearchBar onSearchResults={handleSearchResults} /> 
+        <Link to={"/form"}>
+          <button className={styles.buttonAct}>
+            Create an activity!
+          </button>
+        </Link>
       </div>
-      <SearchBar/> 
-
-      <Link to={"/form"}>
-        <button>
-          Create an activity!
-        </button>
-      </Link>
-
-    </div>
-    
       <div className={styles.cardsContainer}>
         <Cards
           countries={sortedCountries}
@@ -116,10 +108,8 @@ const Home = () => {
           selectedActivity={selectedActivity}
         />
       </div>
-
     </div>
   );
 };
 
 export default Home;
-

@@ -114,13 +114,14 @@ const Form = () => {
 
           <h2>Tourist activities creation form</h2>
           <form >
-            <div>
-              <label>Name:</label>
-              <input type="text" value={name} onChange={handleNameChange} />
+            <div className={styles.selectContainer}>
+              {/* <label>Name:</label> */}
+              <input placeholder='Activity name' type="text" value={name} onChange={handleNameChange} />
               <p style={{ color: 'red' }}>{nameErrorMessage}</p>
             </div>
-            <div>
-              <label>Difficulty:</label>
+
+            <div className={styles.selectContainer}>
+              {/* <label>Difficulty:</label> */}
               <select value={difficulty} onChange={handleDifficultyChange}>
                 <option value="">Select a difficulty</option>
                 <option value="1">Very easy</option>
@@ -130,8 +131,9 @@ const Form = () => {
                 <option value="5">Very hard</option>
               </select>
             </div>
-            <div>
-              <label>Season:</label>
+
+            <div className={styles.selectContainer}>
+              {/* <label>Season:</label> */}
               <select value={season} onChange={handleSeasonChange}>
                 <option value="">Select a season</option>
                 <option value="Spring">Spring</option>
@@ -140,8 +142,9 @@ const Form = () => {
                 <option value="Winter">Winter</option>
               </select>
             </div>
-            <div>
-              <label>Países:</label>
+
+            <div className={styles.selectContainer}>
+              {/* <label>Países:</label> */}
               <select onChange={handleCountryChange}>
                 <option value="">Select a country</option>
                 {countries
@@ -159,7 +162,7 @@ const Form = () => {
                 ))}
               </ul>
             </div>
-            <button type="button" onClick={handleCreateActivity}>
+            <button className={styles.createButton} type="button" onClick={handleCreateActivity}>
               Create
             </button>
             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
