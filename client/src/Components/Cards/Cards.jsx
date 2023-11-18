@@ -42,7 +42,7 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
     <div>
       {filteredCountries.length === 0 && (
         <div>
-          <Card country={{ name: "Country not found" }} />
+          <p>Country not found</p>
         </div>
       )}
 

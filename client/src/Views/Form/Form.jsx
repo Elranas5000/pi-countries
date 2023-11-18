@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from "../Form/Form.module.css"
 import NavBar from '../../Components/NavBar/NavBar';
+import { useDispatch } from 'react-redux';
+import { searchCountriesByActivity } from '../../Redux/actions/actions';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -29,7 +31,7 @@ const Form = () => {
 
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
-    const onlyAlphabetic = /^[a-zA-Z\s]*$/;
+    const onlyAlphabetic = /^[a-zA-ZñÑ\s]*$/;
 
     if (onlyAlphabetic.test(inputValue) || inputValue === '') {
       setName(inputValue);
@@ -90,6 +92,10 @@ const Form = () => {
         setSelectedCountries([]);
         setErrorMessage('');
         setSuccessMessage('Activity succesfully created!');
+        
+        setTimeout(() => {
+          window.location.reload(); //recargo la pagina luego de 1 segundo
+        }, 1000);
       } else {
         const errorData = await response.json();
         console.error('Error al crear la actividad:', errorData.message);
@@ -98,9 +104,10 @@ const Form = () => {
       }
     } catch (error) {
       console.error('Error de red al crear la actividad:', error);
-      setErrorMessage('Error de red al crear la actividad');
+      setErrorMessage('Network error creating the activity');
       setSuccessMessage('');
     }
+    
   };
 
   return (
