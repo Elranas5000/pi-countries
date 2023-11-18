@@ -13,11 +13,8 @@
   }
   
   .button {
-    border-radius: 70px;
+    border-radius: 8px;
     border-color: transparent;
-  }
-  
-  .button:hover {
-    border-color: #87ff65;
+    margin-top: 25px;
   }
   
