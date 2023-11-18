@@ -10,6 +10,13 @@ const SearchBar = () => {
     dispatch(searchCountriesByName(searchTerm));
   };
 
+  const handleKeyPress = (e) => {
+    //verifica si presiono enter
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div>
       <input
@@ -17,6 +24,7 @@ const SearchBar = () => {
         placeholder="Search countries by name"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyPress={handleKeyPress} // si presiono enter, tambien busca
       />
       <button onClick={handleSearch}>Search</button>
     </div>

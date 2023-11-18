@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from "../Form/Form.module.css"
+import NavBar from '../../Components/NavBar/NavBar';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -105,66 +106,67 @@ const Form = () => {
   return (
     <div className={styles.container}>
       
-      <div>
-        <Link to={'/home'}>
-          <button>Home</button>
-        </Link>
+      <div className={styles.NavBar}>
+        <NavBar/>
       </div>
 
-      <h2>Tourist activities creation form</h2>
-      <form >
-        <div>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={handleNameChange} />
-          <p style={{ color: 'red' }}>{nameErrorMessage}</p>
+      <div className={styles.infoContainer}>
+
+          <h2>Tourist activities creation form</h2>
+          <form >
+            <div>
+              <label>Name:</label>
+              <input type="text" value={name} onChange={handleNameChange} />
+              <p style={{ color: 'red' }}>{nameErrorMessage}</p>
+            </div>
+            <div>
+              <label>Difficulty:</label>
+              <select value={difficulty} onChange={handleDifficultyChange}>
+                <option value="">Select a difficulty</option>
+                <option value="1">Very easy</option>
+                <option value="2">Easy</option>
+                <option value="3">Medium</option>
+                <option value="4">Hard</option>
+                <option value="5">Very hard</option>
+              </select>
+            </div>
+            <div>
+              <label>Season:</label>
+              <select value={season} onChange={handleSeasonChange}>
+                <option value="">Select a season</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+                <option value="Autumn">Autumn</option>
+                <option value="Winter">Winter</option>
+              </select>
+            </div>
+            <div>
+              <label>Países:</label>
+              <select onChange={handleCountryChange}>
+                <option value="">Select a country</option>
+                {countries
+                  .slice()
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((country) => (
+                    <option key={country.id} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
+              </select>
+              <ul>
+                {selectedCountries.map((countryId) => (
+                  <li key={countryId}>{countryId}</li>
+                ))}
+              </ul>
+            </div>
+            <button type="button" onClick={handleCreateActivity}>
+              Create
+            </button>
+            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          </form>
         </div>
-        <div>
-          <label>Difficulty:</label>
-          <select value={difficulty} onChange={handleDifficultyChange}>
-            <option value="">Select a difficulty</option>
-            <option value="1">Very easy</option>
-            <option value="2">Easy</option>
-            <option value="3">Medium</option>
-            <option value="4">Hard</option>
-            <option value="5">Very hard</option>
-          </select>
-        </div>
-        <div>
-          <label>Season:</label>
-          <select value={season} onChange={handleSeasonChange}>
-            <option value="">Select a season</option>
-            <option value="Spring">Spring</option>
-            <option value="Summer">Summer</option>
-            <option value="Autumn">Autumn</option>
-            <option value="Winter">Winter</option>
-          </select>
-        </div>
-        <div>
-          <label>Países:</label>
-          <select onChange={handleCountryChange}>
-            <option value="">Select a country</option>
-            {countries
-              .slice()
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((country) => (
-                <option key={country.id} value={country.name}>
-                  {country.name}
-                </option>
-              ))}
-          </select>
-          <ul>
-            {selectedCountries.map((countryId) => (
-              <li key={countryId}>{countryId}</li>
-            ))}
-          </ul>
-        </div>
-        <button type="button" onClick={handleCreateActivity}>
-          Create
-        </button>
-        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      </form>
-    </div>
+      </div>
   );
 };
 

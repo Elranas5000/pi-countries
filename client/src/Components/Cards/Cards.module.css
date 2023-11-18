@@ -1,9 +1,30 @@
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    width: 85vw;
-    margin: 0 auto;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-    grid-gap: 20px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 85vw;
+  height: auto;
+  margin: 20px auto; 
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; 
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #2B2D2F;
+  color: #ddd;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #ddd;
+  color: #2B2D2F;
+}
+

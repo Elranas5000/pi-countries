@@ -1,28 +1,35 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     background-color: #2B2D2F;
     border: 1px solid black;
-    border-radius: 5px;
-    padding: 25px;
+    border-radius: 8px;
     cursor: pointer;
     -moz-osx-font-smoothing: grayscale;
     backface-visibility: hidden;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
     text-decoration: none;
+    overflow: hidden;
+    box-shadow: 1px 1px 4px black;
 }
 
-
-.container:hover{
+.container:hover {
     transform: scale(1.05);
 }
 
-.container img{
-  width: 100%;
-  height: auto;
-  max-height: 150px;
-  object-fit: cover;
+.flagContainer {
+    position: relative;
+}
+
+.flagImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.textContainer {
+    padding: 25px;
 }
 
 .container h3 {
@@ -33,10 +40,9 @@
     white-space: nowrap;
 }
 
-.container p {
+.container h4 {
     font-size: 1rem;
     color: #ddd;
     margin-bottom: 10px;
     flex-grow: 1;
 }
-  

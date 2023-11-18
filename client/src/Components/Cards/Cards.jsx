@@ -65,7 +65,7 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
         >
           Previous
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
+        <span> Page {currentPage} of {totalPages} </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}

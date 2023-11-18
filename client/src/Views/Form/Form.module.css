@@ -1,11 +1,15 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 80vh;
 }
   
   h2 {
     text-align: center;
-    color: #333;
+    color: #ddd;
 }
   
   form {
@@ -61,3 +65,20 @@
     margin-right: 5px;
     color: #007bff;
 }
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #2B2D2F;
+  border: 1px solid black;
+  border-radius: 8px;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 1px 1px 4px black;
+}
+
+/* .infoContainer:hover {
+  
+} */

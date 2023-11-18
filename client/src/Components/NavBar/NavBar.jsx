@@ -1,11 +1,15 @@
 import React from 'react';
-import SearchBar from '../SearchBar/SearchBar';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-    <nav>
-      <SearchBar /> {/*este componente se dedica a renderizar la searchbar */}
-    </nav>
+    <div>
+      <Link to={"/home"}>
+        <button>
+          Home
+        </button>
+      </Link>
+    </div>
   );
 };
 
