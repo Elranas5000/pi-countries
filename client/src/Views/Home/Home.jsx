@@ -18,27 +18,34 @@ const Home = () => {
   const [selectedActivity, setSelectedActivity] = useState('');
   const [searchResults, setSearchResults] = useState([]); 
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   const handleSortTypeChange = (type) => {
     setSortType(type);
     setSelectedContinent("");
     setSelectedActivity("");
+    setCurrentPage(1)
   };
 
   const handleSortDirectionChange = (direction) => {
     setSortDirection(direction);
+    setCurrentPage(1)
   };
 
   const handleContinentChange = (continent) => {
     setSelectedContinent(continent);
+    setCurrentPage(1)
   };
 
   const handleActivityChange = (activity) => {
     setSelectedActivity(activity);
     dispatch(searchCountriesByActivity("", activity));
+    setCurrentPage(1)
   };
 
   const handleSearchResults = (results) => {
     setSearchResults(results);
+    setCurrentPage(1)
   };
 
   const continents = [...new Set(countries.map((country) => country.continents))];
@@ -121,6 +128,8 @@ const Home = () => {
           countries={sortedCountries}
           selectedContinent={selectedContinent}
           selectedActivity={selectedActivity}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
         />
       </div>
 

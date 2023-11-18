@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const SearchBar = ({ onSearchResults }) => {
-  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const countries = useSelector((state) => state.countries);
 

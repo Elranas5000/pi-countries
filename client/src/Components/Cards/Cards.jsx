@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchCountries } from '../../Redux/actions/actions';
 import Card from "../Card/Card";
+import { searchCountries } from '../../Redux/actions/actions';
 import styles from "../Cards/Cards.module.css";
 
-const Cards = ({ countries, selectedContinent, selectedActivity }) => {
+const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, onPageChange }) => {
   const dispatch = useDispatch();
   const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (!selectedContinent && !selectedActivity) {
       dispatch(searchCountries());
     }
-  }, [dispatch, selectedContinent, selectedActivity]);
+  }, [dispatch, selectedContinent, selectedActivity, currentPage]);
 
   const filteredCountries = countries.filter((country) => {
     const isContinentMatch = !selectedContinent || country.continents === selectedContinent;
@@ -23,19 +22,14 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
     return isContinentMatch && isActivityMatch;
   });
 
-  // el principio y el final de los elementos que debe mostrar por pagina
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
   const visibleCountries = filteredCountries.slice(startIndex, endIndex);
-
   const totalPages = Math.ceil(filteredCountries.length / itemsPerPage);
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    if (!selectedContinent && !selectedActivity) {
-      dispatch(searchCountries());
-    }
+    onPageChange(newPage);
   };
 
   return (
@@ -46,20 +40,20 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
         </div>
       )}
 
-        <div className={styles.pagination}>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span> Page {currentPage} of {totalPages} </span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
+      <div className={styles.pagination}>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span> Page {currentPage} of {totalPages} </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
 
       <div className={styles.pagination}>
@@ -107,8 +101,6 @@ const Cards = ({ countries, selectedContinent, selectedActivity }) => {
           Next
         </button>
       </div>
-
-      
     </div>
   );
 };
