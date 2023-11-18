@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchCountriesByName } from '../../Redux/actions/actions';
 
 const SearchBar = ({ onSearchResults }) => {
   const dispatch = useDispatch();

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styles from "../Form/Form.module.css"
 import NavBar from '../../Components/NavBar/NavBar';
-import { useDispatch } from 'react-redux';
-import { searchCountriesByActivity } from '../../Redux/actions/actions';
+
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -95,7 +93,7 @@ const Form = () => {
         
         setTimeout(() => {
           window.location.reload(); //recargo la pagina luego de 1 segundo
-        }, 1000);
+        }, 1250);
       } else {
         const errorData = await response.json();
         console.error('Error al crear la actividad:', errorData.message);

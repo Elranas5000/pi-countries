@@ -61,20 +61,27 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+
       <div className={styles.NavBar}>
+
         <img className={styles.globe} src={gifImage} alt="gif" />
+
         <h2>Countries of the world</h2>
+
         <div className={styles.sortFilterContainer}>
+          
           <select onChange={(e) => handleSortTypeChange(e.target.value)}>
             <option value="name">Filter by</option>
             <option value="name">Name</option>
             <option value="population">Population</option>
           </select>
+
           <select onChange={(e) => handleSortDirectionChange(e.target.value)}>
             <option value="asc">Order</option>
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
+
           <select onChange={(e) => handleContinentChange(e.target.value)} value={selectedContinent}>
             <option key="" value="">
               All continents
@@ -85,6 +92,7 @@ const Home = () => {
               </option>
             ))}
           </select>
+
           <select onChange={(e) => handleActivityChange(e.target.value)} value={selectedActivity}>
             <option key="activity" value="">
               Filter by activities
@@ -95,14 +103,19 @@ const Home = () => {
               </option>
             ))}
           </select>
+
         </div>
+
         <SearchBar onSearchResults={handleSearchResults} /> 
+
         <Link to={"/form"}>
           <button className={styles.buttonAct}>
             Create an activity!
           </button>
         </Link>
+
       </div>
+
       <div className={styles.cardsContainer}>
         <Cards
           countries={sortedCountries}
@@ -110,6 +123,7 @@ const Home = () => {
           selectedActivity={selectedActivity}
         />
       </div>
+
     </div>
   );
 };
