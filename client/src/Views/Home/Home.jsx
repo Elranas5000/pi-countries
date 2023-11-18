@@ -6,6 +6,7 @@ import {  searchCountriesByActivity } from '../../Redux/actions/actions';
 import { Link } from 'react-router-dom';
 import styles from "../Home/Home.module.css"
 import SearchBar from '../../Components/SearchBar/SearchBar';
+import gifImage from "../Landing/Rotating_globe.gif"
 
 const Home = () => {
   const countries = useSelector((state) => state.countries);
@@ -61,7 +62,8 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.NavBar}>
-        <h1>Countries!</h1>
+        <img className={styles.globe} src={gifImage} alt="gif" />
+        <h2>Countries of the world</h2>
         <div className={styles.sortFilterContainer}>
           <select onChange={(e) => handleSortTypeChange(e.target.value)}>
             <option value="name">Filter by</option>
