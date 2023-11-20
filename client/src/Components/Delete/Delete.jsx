@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteActivity } from '../../Redux/actions/actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -8,12 +8,12 @@ const Delete = () => {
   const dispatch = useDispatch();
   const [selectedActivity, setSelectedActivity] = useState('');
   const [activities, setActivities] = useState([]);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-  // Lógica para obtener las actividades desde la API
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/activities'); // Reemplaza la URL con tu endpoint real
+        const response = await axios.get('http://localhost:3001/activities'); 
         const activitiesData = response.data;
         setActivities(activitiesData);
       } catch (error) {
@@ -21,18 +21,26 @@ const Delete = () => {
       }
     };
 
-    
     fetchActivities();
-  }, []); 
+  }, []);
 
-  const handleDeleteClick = () => {
- 
-    if (selectedActivity) {
-    
-      dispatch(deleteActivity(selectedActivity));
+  const handleDeleteClick = async () => {
+    try {
+      if (selectedActivity) {
 
-      // Limpiar la selección después de la eliminación
-      setSelectedActivity('');
+        await dispatch(deleteActivity(selectedActivity));
+
+        setSelectedActivity('');
+        
+        // Mostrar el mensaje de éxito
+        setDeleteSuccess(true);
+
+        setTimeout(() => {
+          setDeleteSuccess(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Error deleting activity:', error.message);
     }
   };
 
@@ -54,6 +62,10 @@ const Delete = () => {
       <button onClick={handleDeleteClick} disabled={!selectedActivity}>
         Delete
       </button>
+
+      {deleteSuccess && (
+        <p style={{ color: 'green' }}>Activity deleted successfully!</p>
+      )}
     </div>
   );
 };
