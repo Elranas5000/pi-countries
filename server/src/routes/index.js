@@ -4,6 +4,7 @@ const { getCountryById } = require("../controllers/getCountryById");
 const getCountriesByName = require("../controllers/getCountriesByName")
 const { postActivity } = require("../controllers/postActivity");
 const { getActivities } = require("../controllers/getActivities");
+const deleteActivity = require("../controllers/deleteActivities");
 
 const router = Router();
 
@@ -16,6 +17,8 @@ router.get("/countries", getAllCountriesDB);
 router.get("/activities", getActivities);
 
 router.post('/activities', postActivity);
+
+router.delete("/activities/:id", deleteActivity)
 
 module.exports = router;
 
