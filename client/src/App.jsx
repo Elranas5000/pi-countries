@@ -8,6 +8,7 @@ import Home from "./Views/Home/Home"
 import Landing from './Views/Landing/Landing';
 import Details from './Views/Details/Details';
 import Form from './Views/Form/Form';
+import Delete from './Components/Delete/Delete';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -21,6 +22,7 @@ const App = () => {
             <Route path='/home' element={<Home />} />
             <Route path='/home/:idPais' element={<Details />} />
             <Route path='/form' element={<Form/>} />
+            <Route path='/delete' element={<Delete/>} />
           </Routes>
         </BrowserRouter>
       </Provider>

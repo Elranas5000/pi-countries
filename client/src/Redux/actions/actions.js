@@ -3,6 +3,7 @@ import axios from 'axios';
 export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const SEARCH_COUNTRIES_BY_NAME = 'SEARCH_COUNTRIES_BY_NAME';
 export const SEARCH_COUNTRIES_BY_ACTIVITY = 'SEARCH_COUNTRIES_BY_ACTIVITY';
+export const DELETE_ACTIVITY = "DELETE_ACTIVITY"
 
 export function searchCountries(continent) {
   return async function(dispatch) {
@@ -46,4 +47,21 @@ export const searchCountriesByActivity = (activity) => {
     type: SEARCH_COUNTRIES_BY_ACTIVITY,
     payload: activity,
   };
+};
+
+export const deleteActivity = (activityId) => async (dispatch) => {
+  try {
+    // Realizar la solicitud HTTP DELETE al endpoint correspondiente en tu servidor
+    await axios.delete(`http://localhost:3001/activities/${activityId}`);
+
+    // Despachar la acción para actualizar el estado después de la eliminación
+    dispatch({
+      type: DELETE_ACTIVITY,
+      payload: activityId,
+    });
+
+    console.log('Actividad eliminada exitosamente');
+  } catch (error) {
+    console.error('Error al eliminar la actividad:', error.message);
+  }
 };
