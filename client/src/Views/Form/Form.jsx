@@ -114,7 +114,7 @@ const Form = () => {
       
       <div>
         <Link to={"/home"}>
-          <button>
+          <button> 
             Home
           </button>
         </Link>
