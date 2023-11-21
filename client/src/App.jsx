@@ -1,17 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import thunk from 'redux-thunk';
-import rootReducer from './Redux/reducers/index';
 import Home from "./Views/Home/Home"
 import Landing from './Views/Landing/Landing';
 import Details from './Views/Details/Details';
 import Form from './Views/Form/Form';
-import Delete from './Components/Delete/Delete';
+import Delete from './Views/Delete/Delete';
+import {store} from "./Redux/store/store" //me traigo al store para "proveer" a mis rutas de su informacion
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
+//este archivo se encarga de renderizar todos los comps de mi app.
 const App = () => {
   return (
     <div className='app'>

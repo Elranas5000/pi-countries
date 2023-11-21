@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import NavBar from '../../Components/NavBar/NavBar';
 import styles from "../Details/Details.module.css";
 
 const Details = () => {
@@ -34,7 +33,13 @@ const Details = () => {
   return (
     <div className={styles.container}>
 
-      <NavBar />
+      <div>
+        <Link to={"/home"}>
+          <button>
+            Home
+          </button>
+        </Link>
+      </div>
 
       <div className={styles.flagContainer}>
 
