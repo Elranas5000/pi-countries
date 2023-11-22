@@ -45,17 +45,19 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
     onPageChange(newPage);
   };
 
+  
+  //funcion para mostrar botones en grupos de 5 en 5:
   const renderPagination = () => {
-    const pagesToShow = 5;
-    const totalGroups = Math.ceil(totalPages / pagesToShow);
-    const currentGroup = Math.ceil(currentPage / pagesToShow);
+    const pagesToShow = 5; //la cantidad de paginas que se mostrarán, es decir del boton 1 al 5
+    const totalGroups = Math.ceil(totalPages / pagesToShow); //cada grupo tiene "pagesToShow" cantidad de paginas
+    const currentGroup = Math.ceil(currentPage / pagesToShow); //determina cual es el grupo actual
   
     const startPage = (currentGroup - 1) * pagesToShow + 1;
     const endPage = Math.min(startPage + pagesToShow - 1, totalPages);
   
-    const buttons = [];
+    const buttons = []; //para almacenar cada boton de la paginacion
   
-    if (currentGroup > 1) {
+    if (currentGroup > 1) { //condicion para mostrar un boton "..." indicando que anteceden paginas
       buttons.push(
         <button
           key="prevGroup"
@@ -66,20 +68,21 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
       );
     }
   
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i <= endPage; i++) { //este bucle genera botones de paginas
       buttons.push(
+        //cada boton tiene un onClick que llama a handlePageChange(i), i es el numero de la pagina
         <button
           key={i}
           onClick={() => handlePageChange(i)}
           disabled={currentPage === i}
-          className={currentPage === i ? styles.currentPage : ''}
+          className={currentPage === i ? styles.currentPage : ''} //si currentPage === i, entonces pinto el boton
         >
           {i}
         </button>
       );
     }
   
-    if (currentGroup < totalGroups) {
+    if (currentGroup < totalGroups) { //condicion para mostrar un boton "..." indicando que siguen paginas
       buttons.push(
         <button
           key="nextGroup"
@@ -90,7 +93,7 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
       );
     }
   
-    return buttons;
+    return buttons; //DEVUELVO EL ARRAY CON LOS BOTONES GENERADOS
   };
 
   return (
@@ -100,7 +103,8 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
           <p>Country not found</p>
         </div>
       )}
-
+  
+      {/* renderizo los botones de paginacion arriba de las cards */}
       <div className={styles.pagination}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -108,9 +112,9 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
         >
           Previous
         </button>
-
+  
         {renderPagination()}
-
+  
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
@@ -118,11 +122,30 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
           Next
         </button>
       </div>
-
+  
       <div className={styles.container}>
         {visibleCountries.map((country) => (
           <Card key={country.id} country={country} />
         ))}
+      </div>
+  
+      {/* renderizoo los botones de paginacion abajo de las cards */}
+      <div className={styles.pagination}>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+  
+        {renderPagination()}
+  
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
