@@ -2,6 +2,7 @@ import { SEARCH_COUNTRIES } from "../actions/actions";
 import { SEARCH_COUNTRIES_BY_ACTIVITY } from "../actions/actions";
 import { SEARCH_COUNTRIES_BY_NAME } from "../actions/actions";
 import { DELETE_ACTIVITY} from "../actions/actions";
+// import { CREATE_ACTIVITY } from "../actions/actions";
 //importacion de las actions
 
 //asi "empieza" el estado de mi app
@@ -41,7 +42,12 @@ const initialState = {
       return {
         ...state,
         activities: updatedActivities,
-      };  
+      };
+      // case CREATE_ACTIVITY:
+      //   return {
+      //     ...state,
+      //     activities: [...state.activities, action.payload],
+      //   };
       default:
         return state;
     }

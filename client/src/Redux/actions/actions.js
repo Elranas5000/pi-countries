@@ -5,6 +5,7 @@ export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const SEARCH_COUNTRIES_BY_NAME = 'SEARCH_COUNTRIES_BY_NAME';
 export const SEARCH_COUNTRIES_BY_ACTIVITY = 'SEARCH_COUNTRIES_BY_ACTIVITY';
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY"
+// export const CREATE_ACTIVITY = "CREATE_ACTIVITY"
 
 //empiezo a exportar las funciones de cada action
 export function searchCountries(continent) {
@@ -56,6 +57,21 @@ export const searchCountriesByActivity = (activity) => { //activity representa e
   };
 };
 
+// export const createActivity = (activityData) => async (dispatch) => {
+//   try {
+//     const response = await axios.post('http://localhost:3001/activities', activityData);
+
+//     dispatch({
+//       type: 'CREATE_ACTIVITY',
+//       payload: response.data,
+//     });
+
+//     console.log('Actividad creada exitosamente:', response.data);
+//   } catch (error) {
+//     console.error('Error al crear la actividad:', error.message);
+//   }
+// };
+
 //para borrar actividades de la db, usando su ID
 export const deleteActivity = (activityId) => async (dispatch) => {
   try {
@@ -71,3 +87,4 @@ export const deleteActivity = (activityId) => async (dispatch) => {
     console.error('Error al eliminar la actividad:', error.message);
   }
 };
+

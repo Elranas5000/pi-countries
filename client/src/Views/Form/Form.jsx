@@ -183,7 +183,7 @@ const Form = () => {
               </select>
               <ul>
                 {selectedCountries.map((countryId) => (
-                  <li key={countryId}>{countryId}</li>
+                  <li key={countryId}>{countries.find((country) => country.id === countryId)?.name}</li>
                 ))}
               </ul>
             </div>
