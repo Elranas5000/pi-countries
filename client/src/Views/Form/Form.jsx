@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 
 
 const Form = () => {
-  const [name, setName] = useState('');
-  const [difficulty, setDifficulty] = useState('');
-  const [season, setSeason] = useState('');
-  const [selectedCountries, setSelectedCountries] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [nameErrorMessage, setNameErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
+  //defino los estados
+  const [name, setName] = useState(''); //para almacenar el nombre de la actividad
+  const [difficulty, setDifficulty] = useState(''); //almacena la dificultad de la actividad
+  const [season, setSeason] = useState(''); //almacena la temporada de la actividad
+  const [selectedCountries, setSelectedCountries] = useState([]); //lista de los identificadores (cca3) de los paises
+  const [countries, setCountries] = useState([]); //lista de paises
+
+  const [errorMessage, setErrorMessage] = useState(''); //mensajes de error para mostrar
+  const [nameErrorMessage, setNameErrorMessage] = useState(''); //mensajes especificos del nombre para mostrar
+  const [successMessage, setSuccessMessage] = useState(''); //mensajes de exito para mostrar
+
+  //obtengo la lista de paises al montar el componente, luego establezco la lista de paises con la data recibida:
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,44 +31,50 @@ const Form = () => {
     fetchData();
   }, []);
 
-  const handleNameChange = (e) => {
-    const inputValue = e.target.value;
-    const onlyAlphabetic = /^[a-zA-ZñÑ\s]*$/;
+  //manejador para actualizar el estado del nombre
+  const handleNameChange = (e) => {  
+    const inputValue = e.target.value; //"e" siendo el valor que el usuario ha ingresado, en este caso el name
+    const onlyAlphabetic = /^[a-zA-ZñÑ\s]*$/; //regex para no permitir numeros ni simbolos salvo ñ
 
-    if (onlyAlphabetic.test(inputValue) || inputValue === '') {
-      setName(inputValue);
-      setNameErrorMessage('');
+    if (onlyAlphabetic.test(inputValue) || inputValue === '') { // si cumple con la regex o si esta vacio
+      setName(inputValue); //actualiza name
+      setNameErrorMessage(''); //quita mensajes de error
     } else {
-      setNameErrorMessage('Only letters, please');
+      setNameErrorMessage('Only letters, please'); //si no cumple con la regex, muestra este msj
     }
   };
 
+  //ambos handle abajo obtienen el valor seleccionado "e" y actualizan su estado en base a ese valor
   const handleDifficultyChange = (e) => {
     setDifficulty(e.target.value);
   };
-
   const handleSeasonChange = (e) => {
     setSeason(e.target.value);
   };
 
+  //maneja el cambio de pais
   const handleCountryChange = (e) => {
     const selectedCountry = e.target.value;
     const selectedCountryId = countries.find((country) => country.name === selectedCountry)?.id;
 
+    // verifica si se encontró el pais y si ese pais no está incluido en la lista (selectedCountries):
     if (selectedCountryId && !selectedCountries.includes(selectedCountryId)) {
+      //si entra al if, se actualiza el estado y lo agrega a la lista
       setSelectedCountries([...selectedCountries, selectedCountryId]);
     }
   };
 
+  //maneja validaciones para crear una actividad, actualiza el estado
   const handleCreateActivity = async () => {
-    // Validaciones
+
+    //compruebo si los campos están llenos, de no ser el caso, envio el mensaje de error
     if (name === '' || difficulty === '' || season === '' || selectedCountries.length === 0) {
       setErrorMessage('All fields are required');
       setSuccessMessage('');
       return;
     }
 
-    // Lógica para enviar datos al servidor y manejar la respuesta
+    //utilizo fetch para enviar un POST al server, con formato JSON
     try {
       const response = await fetch('http://localhost:3001/activities', {
         method: 'POST',
@@ -79,27 +89,33 @@ const Form = () => {
         }),
       });
 
+      //si la respuesta del server es OK, osea si el POST se hizo, obtengo los datos y los almaceno en data
       if (response.ok) {
         const data = await response.json();
         console.log('Actividad creada exitosamente:', data);
 
-        // Limpiar el formulario después de enviar
+        // limpio el formulario después de enviarlo
         setName('');
         setDifficulty('');
         setSeason('');
         setSelectedCountries([]);
         setErrorMessage('');
+
+        //envio mensaje de actividad creada con exito
         setSuccessMessage('Activity succesfully created!');
-        
+
+        //setTimeOut para recargar la pagina y que el POST surta efecto
         setTimeout(() => {
-          window.location.reload(); //recargo la pagina luego de 1 segundo
-        }, 1250);
-      } else {
+          window.location.reload();
+        }, 1200);
+
+      } else { //de tener un error:
         const errorData = await response.json();
         console.error('Error al crear la actividad:', errorData.message);
         setErrorMessage(`Error: ${errorData.message}`);
         setSuccessMessage('');
       }
+      
     } catch (error) {
       console.error('Error de red al crear la actividad:', error);
       setErrorMessage('Network error creating the activity');
@@ -111,7 +127,6 @@ const Form = () => {
   return (
     <div className={styles.container}>
       
-      
       <div>
         <Link to={"/home"}>
           <button> 
@@ -119,8 +134,7 @@ const Form = () => {
           </button>
         </Link>
       </div>
-      
-
+    
       <div className={styles.infoContainer}>
 
           <h2>Tourist activities creation form</h2>

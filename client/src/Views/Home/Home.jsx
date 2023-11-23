@@ -5,25 +5,29 @@ import { searchCountriesByActivity } from '../../Redux/actions/actions';
 import { Link } from 'react-router-dom';
 import styles from "../Home/Home.module.css"
 import SearchBar from '../../Components/SearchBar/SearchBar';
-import gifImage from "../Landing/Rotating_globe.gif"
+import gifImage from "../../assets/worldIcon.png"
 
 const Home = () => {
-  const countries = useSelector((state) => state.countries);
-  const dispatch = useDispatch();
+  const countries = useSelector((state) => state.countries); //para obtener la lista de countries
+  const dispatch = useDispatch(); //para despachar acciones a la store
 
-  const [sortType, setSortType] = useState('name');
-  const [sortDirection, setSortDirection] = useState('asc');
-  const [selectedContinent, setSelectedContinent] = useState('');
-  const [selectedActivity, setSelectedActivity] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [resultsFound, setResultsFound] = useState(true);
+  //useState para gestionar los estados:
+  const [sortType, setSortType] = useState('name'); // tipo de filtrado: por nombre o poblacion, incicia en nombre
+
+  const [sortDirection, setSortDirection] = useState('asc'); // ordenamiento, empieza en ascendente
+
+  const [selectedContinent, setSelectedContinent] = useState(''); // guarda el continente seleccionado
+
+  const [selectedActivity, setSelectedActivity] = useState(''); //guarda la actividad seleccionada
+
+  const [searchResults, setSearchResults] = useState([]); //guarda los resultados de la busqueda
+
+  const [currentPage, setCurrentPage] = useState(1); // numero de la pagina actual
 
 
+  //funciones para manipular ese estado:
   const handleSortTypeChange = (type) => {
     setSortType(type);
-    setSelectedContinent("");
-    setSelectedActivity("");
     setCurrentPage(1)
   };
 
@@ -48,26 +52,37 @@ const Home = () => {
     setCurrentPage(1)
   };
 
+  //guardo listas de continentes y actividades a partir de la lista de countries
+  //Set es una coleccion de valores unicos, no puede tener duplicados
+  //entonces uso ...new Set() para generar un array que extrae en un caso los continentes de countries y en otro sus actividades siempre y cuando no sean undefined
   const continents = [...new Set(countries.map((country) => country.continents))];
-  const activities = [...new Set(countries.flatMap((country) => country.activities?.map(activity => activity.name) || []))];
+  const activities = [...new Set(countries.flatMap((country) => country.activities?.map(activity => activity.name) || []))]; 
 
-  const sortedCountries = [...(searchResults.length > 0 ? searchResults : countries)].sort((a, b) => {
-    if (sortType === 'name') {
+  //ordenamiento de countries:
+  // es decir, si los resultados de la busqueda > 0, entonces se elige esa lista de paises, sino, se elige la lista completa
+  const sortedCountries = [...(searchResults.length > 0 ? searchResults : countries)].sort((a, b) => {  //.sort para comparar entre a y b
+    if (sortType === 'name') { //es decir, el tipo de ordenamiento es por nombre?
+      // si es ascendente, uso localeCompare para mostrar el orden asc
       return sortDirection === 'asc'
         ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
-    } else if (sortType === 'population') {
+        : b.name.localeCompare(a.name); //de no ser ascendente, intercambio a por b para mostrar el orden descendente
+    } else if (sortType === 'population') { //si no es por nombre, es por poblacion
+      // si a-b < 0, a se pone antes que b en orden ascendente, si b-a < 0, b se coloca antes en orden descendente.
       return sortDirection === 'asc' ? a.population - b.population : b.population - a.population;
     }
-    return 0;
+    return 0; //retorno 0 predeterminadamente para que el orden de los elementos no cambie
   });
 
+  //renderizo el componente
   return (
     <div className={styles.container}>
 
       <div className={styles.NavBar}>
 
-        <img className={styles.globe} src={gifImage} alt="gif" />
+
+        <Link to={"/"}>
+          <img className={styles.globe} src={gifImage} alt="gif" />
+        </Link>  
 
         <h2>Countries of the world</h2>
 
@@ -126,7 +141,8 @@ const Home = () => {
       </div>
 
       <div className={styles.cardsContainer}>
-
+          
+          {/*muestro cards con las props necesarias como los botones, y los filtros: */}
           <Cards
             countries={sortedCountries}
             selectedContinent={selectedContinent}

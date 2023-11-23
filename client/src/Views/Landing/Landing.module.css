@@ -1,19 +1,48 @@
+/* Landing.module.css */
 .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 95vh;
+}
+
+.content {
+  max-width: 450px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.button {
+  padding: 10px 15px;
+  font-size: 1em;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.worldImg {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* height: 100vh; 
-    width: 100vh; */
   }
-  
-  .title {
-    /* font-size: 2rem;  */
-    margin-bottom: 20px;
-  }
-  
-  .button {
-    border-color: transparent;
-    margin-top: 25px;
-  }
-  
+}
