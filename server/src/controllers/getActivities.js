@@ -1,9 +1,9 @@
 const { Activity } = require("../db");
 
-const getActivities = async (req, res) => {
+const getActivities = async (req, res) => { //obtiene las actividades de la DB
     try {
-        const activities = await Activity.findAll({
-            include: ['countries'],
+        const activities = await Activity.findAll({ //findAll para obtener todas las instancias del modelo activities
+            include: ['countries'], //incluyo countries asociados a cada activity, es decir que las actividades se llaman con los paises
         });
 
         return res.status(200).json(activities);

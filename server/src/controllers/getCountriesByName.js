@@ -1,17 +1,17 @@
 const { Country } = require("../db");
-const { Op } = require("sequelize");
+const { Op } = require("sequelize"); //para usar el operador Op.iLike
 
 const getCountriesByName = async (req, res) => {
-  const { name } = req.query;
+  const { name } = req.query; // obtengo el parametro name de la consulta de la solicitud, el nombre del pais
 
   try {
     
     console.log(`searching for countries with name: ${name}`);
 
-    const countriesFromDB = await Country.findAll({
+    const countriesFromDB = await Country.findAll({ //busco todos aquellos paises cuyo:
       where: {
         name: {
-          [Op.iLike]: `%${name}%`,
+          [Op.iLike]: `%${name}%`, //para encontrar un simil sin distincion entre mayus y minus
         },
       },
     });

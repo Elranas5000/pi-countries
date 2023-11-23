@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
+//importo los modelos
 const countryModel = require("./models/Country")
 const activityModel = require("./models/Activity")
 
@@ -10,12 +11,15 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
+//nueva instancia de sequelize
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/countries`, {
   logging: false, 
   native: false, 
 });
 const basename = path.basename(__filename);
 
+
+//carga de modelos
 const modelDefiners = [];
 
 fs.readdirSync(path.join(__dirname, '/models'))
@@ -25,7 +29,7 @@ fs.readdirSync(path.join(__dirname, '/models'))
   });
 
 
-modelDefiners.forEach(model => model(sequelize));
+modelDefiners.forEach(model => model(sequelize)); //es decir que cada modelo es cargado en la instancia de sequelize
 
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);

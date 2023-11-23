@@ -1,4 +1,5 @@
-const { Router } = require("express");
+const { Router } = require("express"); //para definir las rutas de express
+//controladores:
 const { getAllCountriesDB } = require("../controllers/getAllCountriesDB");
 const { getCountryById } = require("../controllers/getCountryById");
 const getCountriesByName = require("../controllers/getCountriesByName")
@@ -6,8 +7,9 @@ const { postActivity } = require("../controllers/postActivity");
 const { getActivities } = require("../controllers/getActivities");
 const deleteActivity = require("../controllers/deleteActivities");
 
-const router = Router();
+const router = Router(); //enrutador
 
+//rutas:
 router.get("/countries/name", getCountriesByName)
 
 router.get("/countries/:idPais", getCountryById);
