@@ -20,7 +20,7 @@ const Card = ({ country }) => {
 
         <div className={styles.textContainer}>
           {name && <h3>{name}</h3>}
-          {continents && <h4>Continent: {continents}</h4>}
+          {continents && <h4>{continents}</h4>}
         </div>
         
       </div>

@@ -98,11 +98,6 @@ const Cards = ({ countries, selectedContinent, selectedActivity, currentPage, on
 
   return (
     <div>
-      {filteredCountries.length === 0 && (
-        <div>
-          <p>Country not found</p>
-        </div>
-      )}
   
       {/* renderizo los botones de paginacion arriba de las cards */}
       <div className={styles.pagination}>
