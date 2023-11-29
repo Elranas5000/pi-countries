@@ -1,0 +1,13 @@
+{
+  "name": "pi-countries",
+  "version": "1.0.0",
+  "description": "![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd api && npm install && cd ../client && npm install",
+    "build": "cd api && npm run build && cd ../client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
