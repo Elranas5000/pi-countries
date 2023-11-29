@@ -22,7 +22,6 @@
   width: 90px;
 }
 
-/* responsive */
 @media screen and (max-width: 768px) {
   .NavBar {
     flex-direction: column; 
